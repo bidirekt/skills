@@ -15,7 +15,7 @@ https://bidirekt.com/llms.txt is the only reference. The rules of the contract f
 
 ## 1. Read llms.txt
 
-Before anything else, fetch https://bidirekt.com/llms.txt and read the whole file as raw text: for example `curl -sSfL https://bidirekt.com/llms.txt`, or a web fetch that asks for the full, unmodified text (a summary loses rules). Follow its rules, commands and messages in every step.
+Before anything else, fetch https://bidirekt.com/llms.txt and read the whole file as raw text. Run exactly `curl -sSfL https://bidirekt.com/llms.txt`, with no other flag and no command chained to it: `-f` already fails on any answer that is not 2xx. Use a web fetch only when there is no shell; if it returns a summary instead of the file, treat the reference as unreadable. Follow its rules, commands and messages in every step.
 
 If the fetch fails, the answer is not 200, or the content is not the Bidirekt reference (an HTML page, a parked-domain page, an error page): stop, tell the engineer that the reference at https://bidirekt.com/llms.txt could not be read, and write nothing. Never write a contract from memory or from another copy, and never guess the grammar.
 
