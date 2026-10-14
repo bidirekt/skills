@@ -47,6 +47,8 @@ Whatever the language, find in the code:
 
 Write them as llms.txt says. When the code does something llms.txt has no way to express, leave it out and tell the engineer; never invent syntax.
 
+Write `optional` and `nullable` from what the code does, following the table for modeling null and absence in llms.txt, never from the declared type. When the type says nullable or optional but no code path produces `null` or leaves the key out, write neither and tell the engineer the type is wider than the code. When the code does not let you know, ask.
+
 Folder: `contracts/`, or the folder the project already uses for contracts (for example, where the files its CI passes to the CLI live).
 
 How to organize the files (recommendations, not rules):
