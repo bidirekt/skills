@@ -24,7 +24,10 @@ If the fetch fails, the answer is not 200, or the content is not the Bidirekt re
 Before writing anything, run the participant list. The call needs the CLI binary that llms.txt names, on the PATH, and a configured broker:
 
 - The binary is not found: stop, and show the commands from the `## Setup` section of llms.txt that install the CLI and point it at a broker.
-- The CLI answers that no broker is configured (llms.txt documents the message): stop, and show the commands from `## Setup` that point the CLI at a broker.
+- The CLI answers that no broker is configured (llms.txt documents the message):
+  - it also names one profile of the config file: use it, with `BIDIREKT_PROFILE=<name>` or `--profile <name>` on every later command, and tell the engineer which profile you used;
+  - it names several: ask the engineer which one, and wait;
+  - it names none: stop, and show the commands from `## Setup` that point the CLI at a broker.
 - Any other error: stop, and show it to the engineer.
 
 Never install the CLI or point it at a broker yourself: the engineer does that.
@@ -47,7 +50,7 @@ Whatever the language, find in the code:
 
 Write them as llms.txt says. When the code does something llms.txt has no way to express, leave it out and tell the engineer; never invent syntax.
 
-Write `optional` and `nullable` from what the code does, following the table for modeling null and absence in llms.txt, never from the declared type. When the type says nullable or optional but no code path produces `null` or leaves the key out, write neither and tell the engineer the type is wider than the code. When the code does not let you know, ask.
+Write `optional` and `nullable` from what the code does, following the rule for modeling null and absence in llms.txt, never from the declared type. When the type says nullable or optional but no code path produces `null` or leaves the key out, write neither and tell the engineer the type is wider than the code. When the code does not let you know, ask.
 
 Folder: `contracts/`, or the folder the project already uses for contracts (for example, where the files its CI passes to the CLI live).
 
