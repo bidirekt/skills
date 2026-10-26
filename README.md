@@ -6,7 +6,7 @@ It uses only the open Agent Skills format (https://agentskills.io), so it works 
 
 ## Requirements
 
-- The Bidirekt CLI and a broker it points at: https://bidirekt.com/docs/guides/installation
+- The Bidirekt CLI and a broker it points at: https://bidirekt.com/docs/start/try
 - Access to https://bidirekt.com/llms.txt. The skill keeps no copy of the contract rules or the CLI commands: it reads them there on every run, and stops when it cannot.
 
 ## Install
