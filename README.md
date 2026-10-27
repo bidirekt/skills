@@ -1,5 +1,7 @@
 # Bidirekt agent skill
 
+[![License](https://img.shields.io/github/license/bidirekt/skills)](LICENSE)
+
 `bidirekt` is an agent skill that writes and updates a service's Bidirekt contract files (`contracts/*.yaml`) from its code, checks them against the broker, and fixes them from a `can-i-deploy` report. It runs only the CLI commands that read and never changes anything in the broker; it ends with the `publish` command for you to run.
 
 It uses only the open Agent Skills format (https://agentskills.io), so it works in any agent that `npx skills` installs to.
@@ -30,6 +32,10 @@ npx skills update
 ```
 
 The skill follows the `main` branch; there are no tags or versions.
+
+## Development
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) to report a bug, request a feature or open a pull request.
 
 ## License
 
