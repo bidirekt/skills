@@ -11,6 +11,7 @@ https://bidirekt.com/llms.txt is the only reference. The rules of the contract f
 
 - The contract describes what the code does. Change only the service's own contract files, never the code, and never change a contract only to make a check pass.
 - Run only the CLI commands that read: the local validation (it checks the files and compares them with the counterparts deployed in an environment, storing nothing), the participant list and the environment list.
+- Run each CLI command alone, as the whole command line: nothing chained or appended to it (`;`, `&&`, `|`, `echo $?`). A `BIDIREKT_PROFILE=<name>` prefix is part of the command. The shell already reports the exit status, and the report's first line says the result.
 - Never store a contract version in the broker, never run the deploy check (it asks whether a stored version can be deployed and records the answer in the broker), never record a deployment, never create a participant or an environment, never rename a participant. The engineer runs those.
 
 ## 1. Read llms.txt
