@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/github/license/bidirekt/skills)](LICENSE)
 
-`bidirekt` is an agent skill that writes and updates a service's Bidirekt contract files (`contracts/*.yaml`) from its code, or the TypeScript SDK annotations that generate `contracts/generated.yaml`, checks them against the broker, and fixes them from a `can-i-deploy` report. It runs only the CLI commands that read and never changes anything in the broker; it ends with the `publish` command for you to run.
+`bidirekt` is an agent skill that writes and updates a service's Bidirekt contract files (`contracts/*.yaml`) from its code, or the TypeScript SDK or PHP SDK annotations that generate `contracts/generated.yaml`, checks them against the broker, and fixes them from a `can-i-deploy` report. It runs only the CLI commands that read and never changes anything in the broker; it ends with the `publish` command for you to run.
 
 It uses only the open Agent Skills format (https://agentskills.io), so it works in any agent that `npx skills` installs to.
 
