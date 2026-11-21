@@ -10,7 +10,7 @@ Write and update the service's Bidirekt contract files from its code, check them
 https://bidirekt.com/llms.txt is the only reference. The rules of the contract file, the CLI commands with their flags and messages, the report shape and what each break line means all come from there; this file gives only the steps. In every step:
 
 - The contract describes what the code does. Change only the service's own contract files, never the code (except the SDK annotations, below), and never change a contract only to make a check pass.
-- Run only the CLI commands that read: the local validation (it checks the files and compares them with the counterparts deployed in an environment, storing nothing), the participant list and the environment list. With the SDK, also the SDK command that generates the contract, which writes only `contracts/generated.yaml`.
+- Run only the CLI commands that read: the local validation (it checks the files and, with the participant and an environment, compares them with the counterparts deployed there, storing nothing), the participant list and the environment list. With the SDK, also the SDK command that generates the contract, which writes only `contracts/generated.yaml`.
 - Run each CLI command alone, as the whole command line: nothing chained or appended to it (`;`, `&&`, `|`, `echo $?`). A `BIDIREKT_PROFILE=<name>` prefix is part of the command. The shell already reports the exit status, and the report's first line says the result.
 - Never store a contract version in the broker, never run the deploy check (it asks whether a stored version can be deployed and records the answer in the broker), never record a deployment, never create a participant or an environment, never rename a participant. The engineer runs those.
 
@@ -55,7 +55,7 @@ Never install the CLI or point it at a broker yourself: the engineer does that.
 Read the code, then settle every name before writing anything. When a name needs the engineer, ask and wait.
 
 - The service's own participant: take it from where the project already passes it to the CLI (a CI workflow or a script); otherwise ask the engineer. Never save it anywhere.
-- The environment for the local validation: from the same places, or ask. Check it against the environment list. If it is not there, run nothing with it: show the similar names from the list and ask.
+- The environment for the local validation: from the same places, or ask. Check it against the environment list. If a named environment is not there, run nothing with it: show the similar names from the list and ask. When nobody named an environment and either the environment list is empty or the engineer says there is none yet, run the local validation without the participant and the environment.
 - Each provider the service calls: deduce its participant name from the code (the client's name, or an environment variable such as `PETSTORE_API_URL` → `petstore_api`) and check it against the participant list. If it is not there, do not write it: show the similar names (`petstore_apl` → `petstore_api`?) and ask. If the engineer confirms a new provider that is not in the broker yet, write it and warn that the deploy check fails until that provider stores its contract in the broker. The breaks that come only from that provider are then expected: keep the calls and report the breaks.
 
 ## 4. Write the contracts from the code
@@ -92,7 +92,7 @@ When the contract files already exist, edit them in place; never regenerate a fi
 ## 6. Check the changes
 
 1. Run the participant list and check every provider name under `consumes` against it, as in step 3.
-2. Run the local validation with the participant, the environment and the files.
+2. Run the local validation on the files: it checks them and, with the participant and an environment, compares them with what is deployed there. Pass the participant and the environment settled in step 3, or neither when there is no environment.
 3. Fix the contract from what they answer, as llms.txt explains, deciding each break line as in step 8, and run both again until the validation passes.
 
 Stop looping when the only fix left contradicts the code: tell the engineer that either the code changes or the counterpart is asked, and write the request as in step 8. Stop too when the only breaks left are the expected ones of a new provider (step 3), and report them.
@@ -101,7 +101,7 @@ If the local validation answers that the service's own participant does not exis
 
 ## 7. Finish
 
-List the files written or changed, every removal, every warning and every request for a counterpart. When a contract file changed, end the answer with the next command to run: the command from llms.txt that stores the contract in the broker, with the participant and the files, and the version as a placeholder (or the one the project's CI uses). With the SDK, list the code files changed, and put the command that generates the contract before the one that stores it.
+List the files written or changed, every removal, every warning and every request for a counterpart. When the local validation ran without an environment, say that it checked only the files, and that the comparison with what is deployed was not done. When a contract file changed, end the answer with the next command to run: the command from llms.txt that stores the contract in the broker, with the participant and the files, and the version as a placeholder (or the one the project's CI uses). With the SDK, list the code files changed, and put the command that generates the contract before the one that stores it.
 
 ## 8. Fix the contract from a deploy-check report
 
